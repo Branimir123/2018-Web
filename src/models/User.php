@@ -88,7 +88,9 @@ class User implements \JsonSerializable
 
         while ($foundUser = $query->fetch())
         {
-            if(password_verify($password, foundUser['password'])) {
+            $db_hashed_password = $foundUser['password'];
+
+            if($foundUser && password_verify($password, $db_hashed_password)) {
                 $user = new User();
 
                 $user->setUsername($foundUser['username']);
