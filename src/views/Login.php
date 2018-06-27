@@ -55,9 +55,9 @@
                                 <h2>Menu</h2>
                             </header>
                             <ul>
-                                <li><a href="./HomepageView.php">Homepage</a></li>
-                                <li><a href="./LoginView.php">Login</a></li>
-                                <li><a href="./RegisterView.php">Register</a></li>
+                                <li><a href="./Home.php">Homepage</a></li>
+                                <li><a href="./Login.php">Login</a></li>
+                                <li><a href="./Register.php">Register</a></li>
                             </ul>
                         </nav>
 

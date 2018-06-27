@@ -16,8 +16,9 @@ class User implements \JsonSerializable
     public static function create($username, $password, $email, $full_name)
     {
         $instance = new self();
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $instance->setUsername($username);
-        $instance->setPassword($password);
+        $instance->setPassword($hashed_password);
 		$instance->setEmail($email);
         $instance->setFullName($full_name);      
         
@@ -82,15 +83,21 @@ class User implements \JsonSerializable
 
     public function getUser($username, $password)
     {
-        $query = (new Db())->getConn()->prepare("SELECT * FROM users WHERE username = '$username' AND password = '$password'");
+        $query = (new Db())->getConn()->prepare("SELECT * FROM users WHERE username = '$username'");
         $query->execute();
-        
-        $user = new User();
-        
+
         while ($foundUser = $query->fetch())
         {
-            $user->setUsername($foundUser['username']);
-            $user->setId($foundUser['id']);
+            if(password_verify($password, foundUser['password'])) {
+                $user = new User();
+
+                $user->setUsername($foundUser['username']);
+                $user->setId($foundUser['id']);
+            }
+            else {
+                return false;
+            }
+            
         }
         
         return $user;

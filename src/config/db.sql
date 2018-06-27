@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `quotes-db` COLLATE utf8mb4_unicode_ci;
-USE `quotes-db`;
+CREATE DATABASE IF NOT EXISTS `quotesDb` COLLATE utf8mb4_unicode_ci;
+USE `quotesDb`;
 
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -9,7 +9,7 @@ CREATE TABLE users (
   password VARCHAR(128)
 );
 
-CREATE TABLE quote (
+CREATE TABLE quotes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(128),
   start_date DATE,
