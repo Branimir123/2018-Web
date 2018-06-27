@@ -18,10 +18,13 @@ class Quote implements \JsonSerializable
 
     public static function create($title, $quote_text, $author_id)
     {
+        $current_date = date("Y-m-d h:i:sa");
+
         $instance = new self();
         $instance->setTitle($title);
         $instance->setQuoteText($quote_text);
         $instance->setAuthorId($author_id);
+        $instance->setDateAdded($current_date);
 
         return $instance;
     }
@@ -105,6 +108,25 @@ class Quote implements \JsonSerializable
         }
 
         return $quotes;  
+    }
+
+    public function insert()
+    {
+        $query = (new Db())->getConn()->prepare("INSERT INTO `quotes` (date_added, author_id, quote_text, title) VALUES (?, ?, ?, ?) ");
+        return $query->execute([$this->date_added, $this->author_id, $this->quote_text, $this->title]);
+    }
+
+    public static function delete($id)
+    {
+        $query = (new Db())->getConn()->prepare("DELETE FROM quotes WHERE id=?");
+        
+        return $query->execute([$id]);
+    }
+
+    public static function edit($id, $quote_text, $title)
+    {
+        $query = (new Db())->getConn()->prepare("UPDATE quotes SET title=?, quote_text=? WHERE id=?");
+        return $query->execute([$title, $quote_text]);
     }
 
     public function jsonSerialize()

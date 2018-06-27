@@ -12,7 +12,7 @@ CREATE TABLE users (
 CREATE TABLE quotes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(128),
-  date_added DATE,
+  date_added DATETIME,
   author_id INT NOT NULL,
   quote_text TEXT(128),
   FOREIGN KEY (author_id) REFERENCES users(id)
