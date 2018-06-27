@@ -14,7 +14,8 @@
     <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <?php
             session_start(); 
-            include './Header.php'
+            include './Header.php';
+            include '../controllers/GetAllCategories.php';
         ?>
       <main role="main" class="inner cover">
         <form class="custom-form" method="post" action="../controllers/CreateQuote.php">
@@ -32,6 +33,15 @@
                     Title is required
                 <?php endif?>
             </div>
+
+            <select name="category_id" id="category_id" required>
+                <?php
+                    foreach($categories as $category)
+                    {
+                        echo '<option value=' . $category->getId() . '>' . $category->getCategoryName() . '</option>';
+                    }
+                ?>
+            </select>
 
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>

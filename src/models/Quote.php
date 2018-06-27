@@ -10,13 +10,14 @@ class Quote implements \JsonSerializable
     private $date_added;
     private $author_id;
     private $quote_text;
+    private $category_id;
 
     public function __construct()
     {
 
     }
 
-    public static function create($title, $quote_text, $author_id)
+    public static function create($title, $quote_text, $author_id, $category_id)
     {
         $current_date = date("Y-m-d h:i:sa");
 
@@ -25,6 +26,7 @@ class Quote implements \JsonSerializable
         $instance->setQuoteText($quote_text);
         $instance->setAuthorId($author_id);
         $instance->setDateAdded($current_date);
+        $instance->setCategoryId($category_id);
 
         return $instance;
     }
@@ -73,6 +75,13 @@ class Quote implements \JsonSerializable
         return $this->author_id;
     }
 
+    public function setCategoryId($category_id) {
+        $this->category_id = $category_id;
+    }
+    public function getCategoryId() {
+        return $this->category_id;
+    }
+
     public function getById($id)
     {
         $query = (new Db())->getConn()->prepare("SELECT * FROM quotes WHERE id = '$id'");
@@ -112,8 +121,8 @@ class Quote implements \JsonSerializable
 
     public function insert()
     {
-        $query = (new Db())->getConn()->prepare("INSERT INTO `quotes` (date_added, author_id, quote_text, title) VALUES (?, ?, ?, ?) ");
-        return $query->execute([$this->date_added, $this->author_id, $this->quote_text, $this->title]);
+        $query = (new Db())->getConn()->prepare("INSERT INTO `quotes` (date_added, author_id, quote_text, title, category_id) VALUES (?, ?, ?, ?, ?) ");
+        return $query->execute([$this->date_added, $this->author_id, $this->quote_text, $this->title, $this->category_id]);
     }
 
     public static function delete($id)

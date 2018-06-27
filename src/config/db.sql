@@ -9,12 +9,19 @@ CREATE TABLE users (
   password VARCHAR(128)
 );
 
+CREATE TABLE categories (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  category_name VARCHAR(128)
+);
+
 CREATE TABLE quotes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(128),
   date_added DATETIME,
   author_id INT NOT NULL,
+  category_id INT NOT NULL,
   quote_text TEXT(128),
+  FOREIGN KEY (category_id) REFERENCES categories(id),
   FOREIGN KEY (author_id) REFERENCES users(id)
 );
 
@@ -22,5 +29,7 @@ CREATE TABLE opinions (
   id INT AUTO_INCREMENT PRIMARY KEY,
   opinion_date DATE,
   user_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  quote_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (quote_id) REFERENCES quotes(id)
 );
