@@ -49,7 +49,6 @@ class Validator
 
         if(preg_match($pattern, $email))
         {
-            echo "5";
             return true;
         }  
 

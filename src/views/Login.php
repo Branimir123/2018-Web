@@ -13,6 +13,13 @@
                         <header id="header">
                             <h1 class="logo" id="login-title">Login</h1>
                         </header>
+                        <div class="error">
+                            <?php 
+                                if(isset($_GET['message'])) {
+                                    echo $_GET['message'];
+                                }
+                            ?>
+                        </div>
                         <section id="login-banner" class="banner">
                             <form method="post" action="../controllers/Login.php">
                                 <div class="row uniform" id="login-inputs">

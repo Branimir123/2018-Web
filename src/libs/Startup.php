@@ -9,8 +9,6 @@ class Startup
             $path = $_SERVER['DOCUMENT_ROOT'] . '/2018-Web/src/' . $className . '.php';
             
             $path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
-
-            echo $path;
             
             require_once $path;
         });

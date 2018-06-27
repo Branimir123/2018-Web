@@ -95,14 +95,14 @@ class User implements \JsonSerializable
 
                 $user->setUsername($foundUser['username']);
                 $user->setId($foundUser['id']);
+
+                return $user;
             }
             else {
                 return false;
             }
             
-        }
-        
-        return $user;
+        }        
     }
 
     public function getUserByUsername($username)

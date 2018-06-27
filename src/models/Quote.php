@@ -92,7 +92,7 @@ class Quote implements \JsonSerializable
         $query->execute();
         $quotes = [];
 
-        while ($curr_quote = $query->fetch())
+        while ($foundQuote = $query->fetch())
         {
             $quote =  new Quote();
             $quote->setId($foundQuote['id']);
@@ -101,7 +101,7 @@ class Quote implements \JsonSerializable
             $quote->setAuthorId($foundQuote['author_id']);
             $quote->setQuoteText($foundQuote['quote_text']);
 
-            $quotes[] = $curr_quote;
+            $quotes[] = $quote;
         }
 
         return $quotes;  
