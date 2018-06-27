@@ -17,6 +17,7 @@
         <h1><?=$quote->getTitle()?></h1>
         <h3><?=$quote->getQuoteText()?></h3>
         <h3><?=$quote->getDateAdded()?></h3>
+        <h3><?=$quote->getCategoryName()?></h3>
       </main>
     </div>
   </body>

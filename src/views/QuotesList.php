@@ -26,7 +26,15 @@
             {
                 foreach($quotes as $quote)
                 {
-                 echo '<div class="card" style="width: 33rem;"><div class="card-body"><h5 class="card-title"><a href="./GetQuote.php?id='.$quote->getId().'">'.$quote->getTitle().'</a></h5><h6 class="card-subtitle mb-2 text-muted">'.date('l, jS \of F, Y h:i:s A', strtotime($quote->getDateAdded())).'</h6><p class="card-link">'.$quote->getQuoteText().', '.$quote->getAuthorId().'</p></div></div><br>';
+                 echo '<div>
+                    <div>
+                      <h5>
+                        <a href="./GetQuote.php?id='.$quote->getId().'">'. $quote->getTitle().'</a>
+                      </h5>
+                      <h6>'.date('l, jS \of F, Y h:i:s A', strtotime($quote->getDateAdded())).'</h6>
+                      <p>'.$quote->getQuoteText().', '.$quote->getAuthorId(). ',' . $quote->getCategoryName() .'</p>
+                    </div>
+                  </div><hr/>';
                 }
             }
         ?>

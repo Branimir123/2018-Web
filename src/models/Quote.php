@@ -2,6 +2,7 @@
 namespace models;
 
 use libs\Db;
+use models\Category;
 
 class Quote implements \JsonSerializable
 {
@@ -11,6 +12,7 @@ class Quote implements \JsonSerializable
     private $author_id;
     private $quote_text;
     private $category_id;
+    private $category_name;
 
     public function __construct()
     {
@@ -82,17 +84,28 @@ class Quote implements \JsonSerializable
         return $this->category_id;
     }
 
+    public function setCategoryName($category_name) {
+        $this->category_name = $category_name;
+    }
+    
+    public function getCategoryName() {
+        return $this->category_name;
+    }
+    
     public function getById($id)
     {
         $query = (new Db())->getConn()->prepare("SELECT * FROM quotes WHERE id = '$id'");
         $query->execute();
         $quote = new Quote();
         while ($foundQuote = $query->fetch()) {
+            $category_name = Category::getById($foundQuote['category_id'])->getCategoryName();
+
             $quote->setId($foundQuote['id']);
             $quote->setTitle($foundQuote['title']);
             $quote->setDateAdded($foundQuote['date_added']);
             $quote->setAuthorId($foundQuote['author_id']);
             $quote->setQuoteText($foundQuote['quote_text']);
+            $quote->setCategoryName($category_name);
         }
 
         return $quote;
@@ -106,12 +119,15 @@ class Quote implements \JsonSerializable
 
         while ($foundQuote = $query->fetch())
         {
+            $category_name = Category::getById($foundQuote['category_id'])->getCategoryName();
             $quote =  new Quote();
             $quote->setId($foundQuote['id']);
             $quote->setTitle($foundQuote['title']);
             $quote->setDateAdded($foundQuote['date_added']);
             $quote->setAuthorId($foundQuote['author_id']);
             $quote->setQuoteText($foundQuote['quote_text']);
+            $quote->setCategoryId($foundQuote['category_id']);
+            $quote->setCategoryName($category_name);
 
             $quotes[] = $quote;
         }
