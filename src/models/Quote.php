@@ -13,6 +13,8 @@ class Quote implements \JsonSerializable
     private $quote_text;
     private $category_id;
     private $category_name;
+    private $author_username;
+    private $autor_full_name;
 
     public function __construct()
     {
@@ -91,21 +93,35 @@ class Quote implements \JsonSerializable
     public function getCategoryName() {
         return $this->category_name;
     }
+
+    public function setAuthorUsername($author_username) {
+        $this->author_username = $author_username;
+    }
     
+    public function getAuthorUsername() {
+        return $this->author_username;
+    }
+
+    public function setAuthorFullName($author_full_name) {
+        $this->author_full_name = $author_full_name;
+    }
+    
+    public function getAuthorFullName() {
+        return $this->author_full_name;
+    }
+    
+
     public function getById($id)
     {
         $query = (new Db())->getConn()->prepare("SELECT * FROM quotes WHERE id = '$id'");
         $query->execute();
         $quote = new Quote();
         while ($foundQuote = $query->fetch()) {
-            $category_name = Category::getById($foundQuote['category_id'])->getCategoryName();
-
             $quote->setId($foundQuote['id']);
             $quote->setTitle($foundQuote['title']);
             $quote->setDateAdded($foundQuote['date_added']);
             $quote->setAuthorId($foundQuote['author_id']);
             $quote->setQuoteText($foundQuote['quote_text']);
-            $quote->setCategoryName($category_name);
         }
 
         return $quote;
@@ -113,13 +129,17 @@ class Quote implements \JsonSerializable
 
     public function getAllQuotes()
     {
-        $query = (new Db())->getConn()->prepare("SELECT * FROM quotes");
+        $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.id, c.category_name
+            FROM quotes q 
+            JOIN users u ON q.author_id = u.id 
+            JOIN categories c ON q.category_id = c.id"
+        );
+
         $query->execute();
         $quotes = [];
 
         while ($foundQuote = $query->fetch())
         {
-            $category_name = Category::getById($foundQuote['category_id'])->getCategoryName();
             $quote =  new Quote();
             $quote->setId($foundQuote['id']);
             $quote->setTitle($foundQuote['title']);
@@ -127,7 +147,40 @@ class Quote implements \JsonSerializable
             $quote->setAuthorId($foundQuote['author_id']);
             $quote->setQuoteText($foundQuote['quote_text']);
             $quote->setCategoryId($foundQuote['category_id']);
-            $quote->setCategoryName($category_name);
+            $quote->setAuthorUsername($foundQuote['username']);
+            $quote->setAuthorFullName($foundQuote['full_name']);
+            $quote->setCategoryName($foundQuote['category_name']);
+
+            $quotes[] = $quote;
+        }
+
+        return $quotes;  
+    }
+
+    public function getAllQuotesOrderedByDate()
+    {
+        $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.id, c.category_name
+            FROM quotes q 
+            JOIN users u ON q.author_id = u.id 
+            JOIN categories c ON q.category_id = c.id
+            ORDER BY q.date_added DESC"
+        );
+
+        $query->execute();
+        $quotes = [];
+
+        while ($foundQuote = $query->fetch())
+        {
+            $quote =  new Quote();
+            $quote->setId($foundQuote['id']);
+            $quote->setTitle($foundQuote['title']);
+            $quote->setDateAdded($foundQuote['date_added']);
+            $quote->setAuthorId($foundQuote['author_id']);
+            $quote->setQuoteText($foundQuote['quote_text']);
+            $quote->setCategoryId($foundQuote['category_id']);
+            $quote->setAuthorUsername($foundQuote['username']);
+            $quote->setAuthorFullName($foundQuote['full_name']);
+            $quote->setCategoryName($foundQuote['category_name']);
 
             $quotes[] = $quote;
         }

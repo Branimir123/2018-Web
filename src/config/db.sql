@@ -33,3 +33,9 @@ CREATE TABLE opinions (
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (quote_id) REFERENCES quotes(id)
 );
+
+INSERT INTO categories (category_name) VALUES ("friendship");
+INSERT INTO categories (category_name) VALUES ("fun");
+INSERT INTO categories (category_name) VALUES ("love");
+INSERT INTO categories (category_name) VALUES ("life");
+INSERT INTO categories (category_name) VALUES ("death");
