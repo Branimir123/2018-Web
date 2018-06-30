@@ -5,73 +5,52 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link rel="stylesheet" href="../assets/css/main.css" />
+        <link rel="stylesheet" href="../assets/css/form.css">
+
     </head>
     <body>
         <div id="wrapper">
             <div id="main">
                 <div class="inner">
-                        <header id="header">
-                            <h1 class="logo" id="login-title">Login</h1>
-                        </header>
                         <div class="error">
                             <?php 
+                                include './Header.php';
+                         
                                 if(isset($_GET['message'])) {
                                     echo $_GET['message'];
                                 }
                             ?>
                         </div>
                         <section id="login-banner" class="banner">
-                            <form method="post" action="../controllers/Login.php">
-                                <div class="row uniform" id="login-inputs">
-                                    <div class="8u 12u$(xsmall)">
+                            <div class="form-container">
+                                <form id="contact" method="post" action="../controllers/Login.php">
+                                    <h3>Login</h3>
+                                    <fieldset>
                                         <input type="text" name="username" id="username" placeholder="Username" required />
                                         <div class="error">
                                             <?php if(isset($_GET['username']) && $_GET['username']):?>
                                                 Username is required.
                                             <?php endif?>
                                         </div>
-                                    </div>
-                                    <div class="8u 12u$(xsmall)">
+                                    </fieldset>
+                                
+                                    <fieldset>
                                         <input type="password" name="password" id="password" placeholder="Password" />
                                         <div class="error">
                                             <?php if(isset($_GET['password']) && $_GET['password']):?>
                                                 Password is required.
                                             <?php endif?>
                                         </div>
-                                    </div>
-                                    <div class="8u 12u$">
-                                        <ul id="login-actions" class="actions">
-                                            <li><input type="submit" value="Login" class="special" /></li>
-                                            <li><input type="reset" value="Reset" /></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </form>
+                                    </fieldset>
+                                
+                                    <button type="submit"> Login </button>
+                                    <span>You don't have an account? </span>
+                                    <span>
+                                        <a href="../views/Register.php"> Sign up</a>. It's free!
+                                    </span>
+                                </form>
+                            </div>
                         </section>
-                </div>
-            </div>
-
-            <div id="sidebar">
-                <div class="inner">
-                        <section id="search" class="alt">
-                            <h2>Quotes</h2>
-                        </section>
-
-                        <nav id="menu">
-                            <header class="major">
-                                <h2>Menu</h2>
-                            </header>
-                            <ul>
-                                <li><a href="./Home.php">Homepage</a></li>
-                                <li><a href="./Login.php">Login</a></li>
-                                <li><a href="./Register.php">Register</a></li>
-                            </ul>
-                        </nav>
-
-                        <footer id="footer">
-                            <p class="copyright">&copy; Quotes.</p>
-                        </footer>
-
                 </div>
             </div>
         </div>
