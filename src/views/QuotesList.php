@@ -53,7 +53,7 @@
                      </a>
                     <div class="card__info">
                       <span class="card__category">' . $quote->getTitle() . '</span>
-                      <h3 class="card__title">'. substr($quote->getQuoteText(), 0, 50) .'</h3>
+                      <h3 class="card__title">'. substr($quote->getQuoteText(), 0, 50) .'...</h3>
                       <span class="card__by">by <a href="#" class="card__author" title="author">'. $quote->getRealAuthor() .'</a></span>
                       <br>
                       <span class="card__by">submitted <a href="#" class="card__author" title="author">'. $quote->getAuthorUsername() .'</a></span>

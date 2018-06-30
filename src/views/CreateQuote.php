@@ -19,7 +19,7 @@
             include '../controllers/GetAllCategories.php';
         ?>
       <main role="main">
-        <div class="form-container">
+        <div class="form-container-quote">
             <form id="contact" method="post" action="../controllers/CreateQuote.php">
                 <h3>Create a new quote</h3>
                 <h4>Quote your favourite author or add something yours</h4>

@@ -7,6 +7,13 @@
   position: relative;
 }
 
+.form-container-quote {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
 #contact input[type="text"],
 #contact input[type="email"],
 #contact input[type="password"],
