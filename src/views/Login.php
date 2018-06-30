@@ -15,16 +15,18 @@
                         <div class="error">
                             <?php 
                                 include './Header.php';
-                         
-                                if(isset($_GET['message'])) {
-                                    echo $_GET['message'];
-                                }
                             ?>
                         </div>
                         <section id="login-banner" class="banner">
                             <div class="form-container">
                                 <form id="contact" method="post" action="../controllers/Login.php">
                                     <h3>Login</h3>
+                                    <?php
+                                        if(isset($_GET['message'])) {
+                                            echo '<h4 class="error">' . $_GET['message'] . '</h4>';
+                                        }
+                                    ?>             
+                               
                                     <fieldset>
                                         <input type="text" name="username" id="username" placeholder="Username" required />
                                         <div class="error">

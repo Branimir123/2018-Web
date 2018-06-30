@@ -125,3 +125,7 @@ fieldset {
 :-ms-input-placeholder {
   color: #888;
 }
+
+.error {
+  color: red;
+}
