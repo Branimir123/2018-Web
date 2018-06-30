@@ -135,11 +135,13 @@ class Quote implements \JsonSerializable
         $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.category_name
             FROM quotes q 
             JOIN users u ON q.author_id = u.id 
-            JOIN categories c ON q.category_id = c.id"
+            JOIN categories c ON q.category_id = c.id
+            WHERE q.id = $id"
         );
 
         $query->execute();
         $quote = new Quote();
+
         while ($foundQuote = $query->fetch()) {
             $quote =  new Quote();
             $quote->setId($foundQuote['id']);

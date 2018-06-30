@@ -115,7 +115,8 @@ hr {
   padding: 0 50px;
   color: #dce3e7;
   font-family: 'Droid Serif', serif;
-  font-style: 16px;
+  font-style: italic;
+  font-size: 20px;
   line-height: 24px;
   z-index: 20;
   opacity: 1;
