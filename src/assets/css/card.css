@@ -42,7 +42,19 @@ body {
 }
 
 .card__like {
+    z-index: 2000;
     width: 18px;
+}
+
+.like-wrapper {
+    line-height: 100%;
+    vertical-align: middle;
+    text-decoration: none;
+    z-index: 1600;
+}
+
+.like-wrapper svg:hover path{
+    fill: #a00;
 }
 
 .card__clock {
@@ -162,5 +174,6 @@ border-bottom-right-radius: 12px;
 }
 
 .card:hover .card__info-hover {
+    z-index: 1000;
     opacity: 1;
 }

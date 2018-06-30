@@ -21,8 +21,16 @@ CREATE TABLE quotes (
   author_id INT NOT NULL,
   category_id INT NOT NULL,
   real_author VARCHAR(128),
+  likes INT,
   quote_text TEXT(128),
   FOREIGN KEY (category_id) REFERENCES categories(id),
+  FOREIGN KEY (author_id) REFERENCES users(id)
+);
+
+CREATE TABLE likes (
+  quote_id INT NOT NULL,
+  author_id INT NOT NULL,
+  FOREIGN KEY (quote_id) REFERENCES quotes(id),
   FOREIGN KEY (author_id) REFERENCES users(id)
 );
 

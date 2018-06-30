@@ -32,7 +32,6 @@ if (!$is_text_valid || !$is_title_valid) {
         $quote->insert();
         header('Location: ./GetAllQuotes.php');
     } catch (Exception $ex) {
-        http_response_code(500);
-        header('Location: ../views/Error.php?message=Server error.&status_code=500');
+        echo $ex;
     }
 }

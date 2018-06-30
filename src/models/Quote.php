@@ -16,6 +16,7 @@ class Quote implements \JsonSerializable
     private $author_username;
     private $autor_full_name;
     private $real_author;
+    private $likes;
 
     public function __construct()
     {
@@ -33,6 +34,7 @@ class Quote implements \JsonSerializable
         $instance->setDateAdded($current_date);
         $instance->setCategoryId($category_id);
         $instance->setRealAuthor($real_author);
+        $instance->setLikes(0);
 
         return $instance;
     }
@@ -120,19 +122,37 @@ class Quote implements \JsonSerializable
         return $this->real_author;
     }
     
+    public function setLikes($likes) {
+        $this->likes = $likes;
+    }
+
+    public function getLikes() {
+        return $this->likes;
+    }
 
     public function getById($id)
     {
-        $query = (new Db())->getConn()->prepare("SELECT * FROM quotes WHERE id = '$id'");
+        $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.category_name
+            FROM quotes q 
+            JOIN users u ON q.author_id = u.id 
+            JOIN categories c ON q.category_id = c.id"
+        );
+
         $query->execute();
         $quote = new Quote();
         while ($foundQuote = $query->fetch()) {
+            $quote =  new Quote();
             $quote->setId($foundQuote['id']);
             $quote->setTitle($foundQuote['title']);
             $quote->setDateAdded($foundQuote['date_added']);
             $quote->setAuthorId($foundQuote['author_id']);
             $quote->setQuoteText($foundQuote['quote_text']);
+            $quote->setCategoryId($foundQuote['category_id']);
+            $quote->setAuthorUsername($foundQuote['username']);
+            $quote->setAuthorFullName($foundQuote['full_name']);
+            $quote->setCategoryName($foundQuote['category_name']);
             $quote->setRealAuthor($foundQuote['real_author']);
+            $quote->setLikes($foundQuote['likes']);
         }
 
         return $quote;
@@ -140,7 +160,7 @@ class Quote implements \JsonSerializable
 
     public function getAllQuotes()
     {
-        $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.id, c.category_name
+        $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.category_name
             FROM quotes q 
             JOIN users u ON q.author_id = u.id 
             JOIN categories c ON q.category_id = c.id"
@@ -162,6 +182,7 @@ class Quote implements \JsonSerializable
             $quote->setAuthorFullName($foundQuote['full_name']);
             $quote->setCategoryName($foundQuote['category_name']);
             $quote->setRealAuthor($foundQuote['real_author']);
+            $quote->setLikes($foundQuote['likes']);
 
             $quotes[] = $quote;
         }
@@ -171,7 +192,7 @@ class Quote implements \JsonSerializable
 
     public function getAllQuotesOrderedByDate()
     {
-        $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.id, c.category_name
+        $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.category_name
             FROM quotes q 
             JOIN users u ON q.author_id = u.id 
             JOIN categories c ON q.category_id = c.id
@@ -194,6 +215,7 @@ class Quote implements \JsonSerializable
             $quote->setAuthorFullName($foundQuote['full_name']);
             $quote->setCategoryName($foundQuote['category_name']);
             $quote->setRealAuthor($foundQuote['real_author']);
+            $quote->setLikes($foundQuote['likes']);
 
             $quotes[] = $quote;
         }
@@ -203,8 +225,8 @@ class Quote implements \JsonSerializable
 
     public function insert()
     {
-        $query = (new Db())->getConn()->prepare("INSERT INTO `quotes` (date_added, author_id, quote_text, title, real_author, category_id) VALUES (?, ?, ?, ?, ?, ?) ");
-        return $query->execute([$this->date_added, $this->author_id, $this->quote_text, $this->title, $this->real_author, $this->category_id]);
+        $query = (new Db())->getConn()->prepare("INSERT INTO `quotes` (date_added, author_id, quote_text, title, real_author, category_id, likes) VALUES (?, ?, ?, ?, ?, ?, ?) ");
+        return $query->execute([$this->date_added, $this->author_id, $this->quote_text, $this->title, $this->real_author, $this->category_id, 0]);
     }
 
     public static function delete($id)
@@ -218,6 +240,11 @@ class Quote implements \JsonSerializable
     {
         $query = (new Db())->getConn()->prepare("UPDATE quotes SET title=?, quote_text=? WHERE id=?");
         return $query->execute([$title, $quote_text]);
+    }
+
+    public function like(){
+        $query = (new Db())->getConn()->prepare("UPDATE quotes SET likes=? WHERE id=?");
+        return $query->execute([$this->getLikes() + 1, $this->id]);
     }
 
     public function jsonSerialize()
