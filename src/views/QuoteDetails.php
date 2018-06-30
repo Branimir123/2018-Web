@@ -18,17 +18,27 @@
         <div class="title-content">
           <h3><?=$quote->getTitle()?></h3>
           <hr />
+          <?php if($quote->getAuthorId() == $_SESSION['current_user_id']) : ?>
+            <a class="delete-btn" href="<?php echo '../controllers/DeleteQuote.php?id=' . $quote->getId()?>">
+              <i class="fas fa-trash-alt"></i>
+            </a>
+          <?php endif; ?>
           <div class="intro-author">Author: <?=$quote->getRealAuthor()?></div>
           <div class="intro">Submitted: <?=$quote->getAuthorFullName()?></div>
         </div>
         <div class="card-info"><?=$quote->getQuoteText()?></div>
         <div class="utility-info">
           <ul class="utility-list">
-            <li class="comments"><?=$quote->getLikes()?></li>
-            <li class="date"><?=$quote->getDateAdded()?></li>
-            <?php if($quote->getAuthorId() == $_SESSION['current_user_id']) : ?>
-              <li class="delete-btn"><a href="<?php echo '../controllers/DeleteQuote.php?id=' . $quote->getId()?>">Delete</a></li>
-            <?php endif; ?>
+            <li class="comments">
+              <a class="likes-link" href="<?php echo '../controllers/LikeQuote.php?id='.$quote->getId() ?>">
+                <i class="fas fa-heart"></i>
+              </a>
+              <?=$quote->getLikes()?>
+            </li>
+            <li class="date">
+              <i class="fas fa-calendar-alt"></i>
+              <?=$quote->getDateAdded()?>
+            </li>
           </ul>
         </div>
         <!-- overlays -->

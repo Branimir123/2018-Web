@@ -54,6 +54,12 @@ body {
   opacity: 1;
   bottom: 120px;
 }
+
+.blog-card:hover .comments {
+    opacity: 1;
+    transform: scale(1.5);
+}
+
 .blog-card:hover .color-overlay {
   background: rgba(84, 104, 110, 0.8);
 }
@@ -134,14 +140,32 @@ hr {
   color: #dce3e7;
   font-family: 'Roboto', sans-serif;
 }
-.utility-list li.comments {
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1765/icon-chat.svg) no-repeat 0 0.2em;
-}
-.utility-list li.date {
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1765/icon-calendar.svg) no-repeat 0 0.1em;
-}
 
 .delete-btn {
     opacity: 0;
-    float: right;
+    text-decoration: none;
+    position: absolute;
+    right: 30px;
+}
+
+.delete-btn i {
+    font-size: 30px;
+    color: red;
+}
+
+.delete-btn:hover i {
+    transition: ease-out 0.3s;
+    transform: scale(1.5);
+    color: red;
+}
+
+.likes-link {
+    z-index: 9999;
+    text-decoration: none;
+    color: rgb(156, 38, 38);
+}
+
+.likes-link:hover i {
+    transition: ease-out 0.3s;
+    transform: scale(1.3);
 }
