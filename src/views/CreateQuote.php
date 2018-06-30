@@ -6,46 +6,63 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../assets/css/form.css">
 
     <title>Create a quote</title>
   </head>
 
   <body class="text-center">
-    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <div class="container">
         <?php
             session_start(); 
             include './Header.php';
             include '../controllers/GetAllCategories.php';
         ?>
-      <main role="main" class="inner cover">
-        <form class="custom-form" method="post" action="../controllers/CreateQuote.php">
-        <h1 class="h3 mb-3 font-weight-normal">Create a new quote</h1>
-            <input type="text" id="title" name="title" class="form-control" placeholder="Title" required >
-            <div class="error">
-                <?php if (isset($_GET['title']) && $_GET['title'] == 'false'): ?>
-                    Title is required
-                <?php endif?>
-            </div>
+      <main role="main">
+        <div class="form-container">
+            <form id="contact" method="post" action="../controllers/CreateQuote.php">
+                <h3>Create a new quote</h3>
+                <h4>Quote your favourite author or add something yours</h4>
+                <fieldset>
+                    <input type="text" id="title" name="title" class="form-control" placeholder="Title" required >
+                    <div class="error">
+                        <?php if (isset($_GET['title']) && $_GET['title'] == 'false'): ?>
+                            Title is required
+                        <?php endif?>
+                    </div>
+                </fieldset>
 
-            <input type="textarea" id="quote_text" name="quote_text" class="form-control" placeholder="Text" required >
-            <div class="error">
-                <?php if (isset($_GET['quote_text']) && $_GET['quote_text'] == 'false'): ?>
-                    Title is required
-                <?php endif?>
-            </div>
+                <textarea id="quote_text" name="quote_text" placeholder="Quote" required></textarea>
+                <div class="error">
+                    <?php if (isset($_GET['quote_text']) && $_GET['quote_text'] == 'false'): ?>
+                        Title is required
+                    <?php endif?>
+                </div>
 
-            <select name="category_id" id="category_id" required>
-                <?php
-                    foreach($categories as $category)
-                    {
-                        echo '<option value=' . $category->getId() . '>' . $category->getCategoryName() . '</option>';
-                    }
-                ?>
-            </select>
+                <fieldset>
+                    <input type="text" id="real_author" name="real_author" placeholder="Author (maybe you?)" required >
+                    <div class="error">
+                        <?php if (isset($_GET['title']) && $_GET['title'] == 'false'): ?>
+                            Title is required
+                        <?php endif?>
+                    </div>
+                </fieldset>
 
+                <fieldset>
+                    <span>Category: </span>
+                    <select name="category_id" id="category_id" required>
+                        <?php
+                            foreach($categories as $category)
+                            {
+                                echo '<option value=' . $category->getId() . '>' . $category->getCategoryName() . '</option>';
+                            }
+                        ?>
+                    </select>
+                </fieldset>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
-        </form>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+            </form>
+        </div>
       </main>
     </div>
   </body>

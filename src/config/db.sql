@@ -20,6 +20,7 @@ CREATE TABLE quotes (
   date_added DATETIME,
   author_id INT NOT NULL,
   category_id INT NOT NULL,
+  real_author VARCHAR(128),
   quote_text TEXT(128),
   FOREIGN KEY (category_id) REFERENCES categories(id),
   FOREIGN KEY (author_id) REFERENCES users(id)
@@ -39,3 +40,4 @@ INSERT INTO categories (category_name) VALUES ("fun");
 INSERT INTO categories (category_name) VALUES ("love");
 INSERT INTO categories (category_name) VALUES ("life");
 INSERT INTO categories (category_name) VALUES ("death");
+INSERT INTO categories (category_name) VALUES ("other");

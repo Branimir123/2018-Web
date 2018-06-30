@@ -32,7 +32,7 @@
                         <a href="./GetQuote.php?id='.$quote->getId().'">'. $quote->getTitle().'</a>
                       </h5>
                       <h6>'.date('l, jS \of F, Y h:i:s A', strtotime($quote->getDateAdded())).'</h6>
-                      <p>'.$quote->getQuoteText().', '.$quote->getAuthorUsername(). ',' . $quote->getCategoryName() .'</p>
+                      <p>'.$quote->getQuoteText().', '.$quote->getAuthorUsername(). ',' . $quote->getCategoryName() . ', ' . $quote->getRealAuthor() . '</p>
                     </div>
                   </div><hr/>';
                 }

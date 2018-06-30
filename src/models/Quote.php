@@ -15,13 +15,14 @@ class Quote implements \JsonSerializable
     private $category_name;
     private $author_username;
     private $autor_full_name;
+    private $real_author;
 
     public function __construct()
     {
 
     }
 
-    public static function create($title, $quote_text, $author_id, $category_id)
+    public static function create($title, $quote_text, $author_id, $real_author, $category_id)
     {
         $current_date = date("Y-m-d h:i:sa");
 
@@ -31,6 +32,7 @@ class Quote implements \JsonSerializable
         $instance->setAuthorId($author_id);
         $instance->setDateAdded($current_date);
         $instance->setCategoryId($category_id);
+        $instance->setRealAuthor($real_author);
 
         return $instance;
     }
@@ -110,6 +112,14 @@ class Quote implements \JsonSerializable
         return $this->author_full_name;
     }
     
+    public function setRealAuthor($real_author) {
+        $this->real_author = $real_author;
+    }
+
+    public function getRealAuthor() {
+        return $this->real_author;
+    }
+    
 
     public function getById($id)
     {
@@ -122,6 +132,7 @@ class Quote implements \JsonSerializable
             $quote->setDateAdded($foundQuote['date_added']);
             $quote->setAuthorId($foundQuote['author_id']);
             $quote->setQuoteText($foundQuote['quote_text']);
+            $quote->setRealAuthor($foundQuote['real_author']);
         }
 
         return $quote;
@@ -150,6 +161,7 @@ class Quote implements \JsonSerializable
             $quote->setAuthorUsername($foundQuote['username']);
             $quote->setAuthorFullName($foundQuote['full_name']);
             $quote->setCategoryName($foundQuote['category_name']);
+            $quote->setRealAuthor($foundQuote['real_author']);
 
             $quotes[] = $quote;
         }
@@ -181,6 +193,7 @@ class Quote implements \JsonSerializable
             $quote->setAuthorUsername($foundQuote['username']);
             $quote->setAuthorFullName($foundQuote['full_name']);
             $quote->setCategoryName($foundQuote['category_name']);
+            $quote->setRealAuthor($foundQuote['real_author']);
 
             $quotes[] = $quote;
         }
@@ -190,8 +203,8 @@ class Quote implements \JsonSerializable
 
     public function insert()
     {
-        $query = (new Db())->getConn()->prepare("INSERT INTO `quotes` (date_added, author_id, quote_text, title, category_id) VALUES (?, ?, ?, ?, ?) ");
-        return $query->execute([$this->date_added, $this->author_id, $this->quote_text, $this->title, $this->category_id]);
+        $query = (new Db())->getConn()->prepare("INSERT INTO `quotes` (date_added, author_id, quote_text, title, real_author, category_id) VALUES (?, ?, ?, ?, ?, ?) ");
+        return $query->execute([$this->date_added, $this->author_id, $this->quote_text, $this->title, $this->real_author, $this->category_id]);
     }
 
     public static function delete($id)
