@@ -16,8 +16,10 @@ if(!isset($_SESSION['current_user_id'])) {
 	$quote = Quote::getById($quote_id);
 
 	if($quote->getTitle() && $quote->getQuoteText()) {
-		$quote->like();
-		header('Location: ../controllers/GetAllQuotes.php');
+		if($quote->isLikedByUser($quote_id, $current_user) == 0) {
+			$quote->like($quote->getId(), $current_user);
+		}
+		header('Location: ../controllers/GetQuote.php?id='. $quote_id);
 	} else {
 		http_response_code(500);
 	}

@@ -29,9 +29,9 @@ CREATE TABLE quotes (
 
 CREATE TABLE likes (
   quote_id INT NOT NULL,
-  author_id INT NOT NULL,
+  user_id INT NOT NULL,
   FOREIGN KEY (quote_id) REFERENCES quotes(id),
-  FOREIGN KEY (author_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE opinions (

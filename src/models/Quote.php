@@ -132,10 +132,11 @@ class Quote implements \JsonSerializable
 
     public function getById($id)
     {
-        $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.category_name
+        $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.category_name, l.*, count(l.user_id) as likesCount
             FROM quotes q 
             JOIN users u ON q.author_id = u.id 
             JOIN categories c ON q.category_id = c.id
+            JOIN likes l ON q.id = l.quote_id
             WHERE q.id = $id"
         );
 
@@ -154,7 +155,7 @@ class Quote implements \JsonSerializable
             $quote->setAuthorFullName($foundQuote['full_name']);
             $quote->setCategoryName($foundQuote['category_name']);
             $quote->setRealAuthor($foundQuote['real_author']);
-            $quote->setLikes($foundQuote['likes']);
+            $quote->setLikes($foundQuote['likesCount']);
         }
 
         return $quote;
@@ -162,10 +163,12 @@ class Quote implements \JsonSerializable
 
     public function getAllQuotes()
     {
-        $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.category_name
+        $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.category_name, count(l.user_id) as likesCount
             FROM quotes q 
             JOIN users u ON q.author_id = u.id 
-            JOIN categories c ON q.category_id = c.id"
+            JOIN categories c ON q.category_id = c.id
+            LEFT JOIN likes l ON q.id = l.quote_id
+            GROUP BY q.id"
         );
 
         $query->execute();
@@ -184,7 +187,7 @@ class Quote implements \JsonSerializable
             $quote->setAuthorFullName($foundQuote['full_name']);
             $quote->setCategoryName($foundQuote['category_name']);
             $quote->setRealAuthor($foundQuote['real_author']);
-            $quote->setLikes($foundQuote['likes']);
+            $quote->setLikes($foundQuote['likesCount']);
 
             $quotes[] = $quote;
         }
@@ -244,9 +247,22 @@ class Quote implements \JsonSerializable
         return $query->execute([$title, $quote_text, $real_author, $category_id, $id]);
     }
 
-    public function like(){
-        $query = (new Db())->getConn()->prepare("UPDATE quotes SET likes=? WHERE id=?");
-        return $query->execute([$this->getLikes() + 1, $this->id]);
+    public function like($quote_id, $user_id) {
+        $query = (new Db())->getConn()->prepare("INSERT INTO likes (quote_id, user_id) VALUES (?, ?)");
+
+        return $query->execute([$quote_id, $user_id]);
+    }
+
+    public function isLikedByUser($quote_id, $user_id) {
+        $query = (new Db())->getConn()->prepare("SELECT COUNT(*) as has_liked FROM likes WHERE quote_id = $quote_id AND user_id = $user_id");
+        $query->execute();
+
+        $likesCount = 0;
+        while ($foundLikes = $query->fetch()) {
+            $likesCount = $foundLikes['has_liked'];
+        }
+
+        return $likesCount;
     }
 
     public function jsonSerialize()
