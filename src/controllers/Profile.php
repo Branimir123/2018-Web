@@ -16,6 +16,7 @@ if(!isset($_SESSION['current_user_id'])) {
     $current_user_name = $_SESSION['current_user_username'];
 
     $quotes = Quote::getUserQuotes($current_user_id);
+    $liked_quotes = Quote::getQuotesLikedByUser($current_user_id);
     $user = User::getUserByUsername($current_user_name);
     
 	require_once('../views/Profile.php');
