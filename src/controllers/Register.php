@@ -24,7 +24,7 @@ if (!$is_username_valid || !$is_password_valid || !$is_repeated_password_valid |
     $isSuccessful = $user->insert();
 
     if ($isSuccessful) {
-        header('Location: ../views/Home.php');
+    	header('Location: ./GetAllQuotes.php');
     } else {
         echo "<p> Error! The subject was not inserted! </p>";
     }

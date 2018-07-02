@@ -22,7 +22,7 @@ if (!$is_username_valid || !$is_password_valid) {
     	$_SESSION['current_user_username'] = $user->getUsername();
     	$_SESSION['current_user_id'] = $user->getId();
 
-    	header('Location: ../views/Home.php');
+    	header('Location: ./GetAllQuotes.php');
     }
     else
     {
