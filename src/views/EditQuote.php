@@ -8,7 +8,7 @@
     <link rel="icon" href="../../../../favicon.ico">
     <link rel="stylesheet" href="../assets/css/form.css">
 
-    <title>Create a quote</title>
+    <title>Edit</title>
   </head>
 
   <body class="text-center">
@@ -23,15 +23,23 @@
                 return;
             }
 
+            if($_SESSION['current_user_id'] != $_GET['author_id']) {
+                header('Location: ../controllers/GetQuote.php?id='. $_GET['id']);
+            }
+
             include '../controllers/GetAllCategories.php';
         ?>
       <main role="main">
         <div class="form-container-quote">
-            <form id="contact" method="post" action="../controllers/CreateQuote.php">
-                <h3>Create a new quote</h3>
-                <h4>Quote your favourite author or add something yours</h4>
+            <form id="contact" method="post" action="../controllers/EditQuote.php">
+                <h3>Edit your quote</h3>
+                <h4>You did a typo? No worries!</h4>
+
+                <input type="hidden" id="id" name="id" value="<?=$_GET['id']?>">
+                <input type="hidden" id="author_id" name="author_id" value="<?=$_GET['author_id']?>">
+
                 <fieldset>
-                    <input type="text" id="title" name="title" class="form-control" placeholder="Title" required >
+                    <input type="text" id="title" name="title" class="form-control" placeholder="Title" value="<?=$_GET['title']?>" required >
                     <div class="error">
                         <?php if (isset($_GET['title']) && $_GET['title'] == 'false'): ?>
                             Title is required
@@ -39,7 +47,7 @@
                     </div>
                 </fieldset>
 
-                <textarea id="quote_text" name="quote_text" placeholder="Quote" required></textarea>
+                <textarea id="quote_text" name="quote_text" placeholder="Quote" required><?=$_GET['quote_text']?></textarea>
                 <div class="error">
                     <?php if (isset($_GET['quote_text']) && $_GET['quote_text'] == 'false'): ?>
                         Title is required
@@ -47,7 +55,7 @@
                 </div>
 
                 <fieldset>
-                    <input type="text" id="real_author" name="real_author" placeholder="Author (maybe you?)" required >
+                    <input type="text" id="real_author" name="real_author" placeholder="Author (maybe you?)" value="<?=$_GET['real_author']?>" required >
                     <div class="error">
                         <?php if (isset($_GET['title']) && $_GET['title'] == 'false'): ?>
                             Title is required
@@ -61,13 +69,13 @@
                         <?php
                             foreach($categories as $category)
                             {
-                                echo '<option value=' . $category->getId() . '>' . $category->getCategoryName() . '</option>';
+                                echo '<option value=' . $category->getId() . (($category->getId() == $_GET['category_id']) ? ' selected' : '') . '>' . $category->getCategoryName() . '</option>';
                             }
                         ?>
                     </select>
                 </fieldset>
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Update Quote</button>
             </form>
         </div>
       </main>

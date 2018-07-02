@@ -22,6 +22,16 @@
             <a class="delete-btn" href="<?php echo '../controllers/DeleteQuote.php?id=' . $quote->getId()?>">
               <i class="fas fa-trash-alt"></i>
             </a>
+            <a class="edit-btn" href="<?php 
+                echo '../views/EditQuote.php?id=' . $quote->getId() . 
+                '&title=' . $quote->getTitle() . 
+                '&author_id=' . $quote->getAuthorId() .
+                '&quote_text=' . $quote->getQuoteText() .
+                '&real_author=' . $quote->getRealAuthor() .
+                '&category_id=' . $quote->getCategoryId()
+              ?>">
+              <i class="far fa-edit"></i>
+            </a>
           <?php endif; ?>
           <div class="intro-author">Author: <?=$quote->getRealAuthor()?></div>
           <div class="intro">Submitted: <?=$quote->getAuthorFullName()?></div>

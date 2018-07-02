@@ -238,10 +238,10 @@ class Quote implements \JsonSerializable
         return $query->execute([$id]);
     }
 
-    public static function edit($id, $quote_text, $title)
+    public static function edit($id, $quote_text, $title, $real_author, $category_id)
     {
-        $query = (new Db())->getConn()->prepare("UPDATE quotes SET title=?, quote_text=? WHERE id=?");
-        return $query->execute([$title, $quote_text]);
+        $query = (new Db())->getConn()->prepare("UPDATE quotes SET title=?, quote_text=?, real_author=?, category_id=? WHERE id=?");
+        return $query->execute([$title, $quote_text, $real_author, $category_id, $id]);
     }
 
     public function like(){

@@ -1,13 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic);
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-body {
-  background: #323c41;
-}
+
 .blog-card {
   width: 80vw;
   min-height: 500px;
@@ -51,6 +44,11 @@ body {
   z-index: 15;
 }
 .blog-card:hover .delete-btn {
+  opacity: 1;
+  bottom: 120px;
+}
+
+.blog-card:hover .edit-btn {
   opacity: 1;
   bottom: 120px;
 }
@@ -150,7 +148,7 @@ hr {
 }
 
 .delete-btn i {
-    font-size: 30px;
+    font-size: 24px;
     color: red;
 }
 
@@ -158,6 +156,24 @@ hr {
     transition: ease-out 0.3s;
     transform: scale(1.5);
     color: red;
+}
+
+.edit-btn {
+  opacity: 0;
+  text-decoration: none;
+  position: absolute;
+  right: 70px;
+}
+
+.edit-btn i {
+  font-size: 24px;
+  color: orange;
+}
+
+.edit-btn:hover i {
+  transition: ease-out 0.3s;
+  transform: scale(1.5);
+  color: orange;
 }
 
 .likes-link {
