@@ -30,16 +30,16 @@
                                     <fieldset>
                                         <input type="text" name="username" id="username" placeholder="Username" required />
                                         <div class="error">
-                                            <?php if(isset($_GET['username']) && $_GET['username']):?>
+                                            <?php if(isset($_GET['username']) && $_GET['username'] == 'false'):?>
                                                 Username is required.
                                             <?php endif?>
                                         </div>
                                     </fieldset>
                                 
                                     <fieldset>
-                                        <input type="password" name="password" id="password" placeholder="Password" />
+                                        <input type="password" name="password" id="password" placeholder="Password" required/>
                                         <div class="error">
-                                            <?php if(isset($_GET['password']) && $_GET['password']):?>
+                                            <?php if(isset($_GET['password']) && $_GET['password'] == 'false'):?>
                                                 Password is required.
                                             <?php endif?>
                                         </div>
