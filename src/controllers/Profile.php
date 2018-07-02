@@ -13,8 +13,11 @@ if(!isset($_SESSION['current_user_id'])) {
  	header('Location: ../views/Login.php?message=' . $message . '&status_code=401');
 } else {
     $current_user_id = $_SESSION['current_user_id'];
+    $current_user_name = $_SESSION['current_user_username'];
+
     $quotes = Quote::getUserQuotes($current_user_id);
-	
+    $user = User::getUserByUsername($current_user_name);
+    
 	require_once('../views/Profile.php');
 }
 ?>

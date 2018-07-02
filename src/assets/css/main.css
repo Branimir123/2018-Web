@@ -9,5 +9,20 @@ body {
 }
 
 .profile-heading {
-    margin: 25px;
+    font-weight: 400;
+    color: white;
+    margin-top: 25px;
+    margin-left: 25px;
+}
+
+.profile-subheading {
+    font-weight: 100;
+    color: white;
+    margin: 0 25px;
+}
+
+.profile-message {
+    font-weight: 100;
+    color: white;
+    margin: 25px 25px;
 }

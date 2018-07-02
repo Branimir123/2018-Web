@@ -19,7 +19,9 @@
 
     <main role="main" class="inner cover">
 
-    <h1 class="profile-heading">Quotes you added: </h1>
+    <h1 class="profile-heading">Hi, <?=$user->getFullName() ?> (<?=$user->getUsername() ?>)</h1>
+    <h3 class="profile-subheading"><?=$user->getEmail()?></h3>
+    <h2 class="profile-message">Check out the quotes you've added: </h2>
     <ul class="list-group">
       <section class="cards">
         <?php
