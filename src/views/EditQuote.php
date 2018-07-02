@@ -8,7 +8,7 @@
     <link rel="icon" href="../../../../favicon.ico">
     <link rel="stylesheet" href="../assets/css/form.css">
 
-    <title>Edit</title>
+    <title>Edit quote</title>
   </head>
 
   <body class="text-center">

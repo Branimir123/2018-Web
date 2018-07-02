@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="../assets/css/main.css" />
         <link rel="stylesheet" href="../assets/css/form.css">
 
+        <title>Login</title>
     </head>
     <body>
         <div id="wrapper">

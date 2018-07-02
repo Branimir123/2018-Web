@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../assets/css/card.css">
     <link rel="stylesheet" href="../assets/css/main.css">
 
-    <title>All quotes</title>
+    <title>Quotes</title>
 
   </head>
 
