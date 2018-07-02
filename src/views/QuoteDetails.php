@@ -18,6 +18,13 @@
         <div class="title-content">
           <h3><?=$quote->getTitle()?></h3>
           <hr />
+          <a class="download-btn" href="<?php 
+              echo '../controllers/ExportQuote.php?quote_text='.$quote->getQuoteText().
+                '&title='.$quote->getTitle(). 
+                '&author='.$quote->getRealAuthor()?>"
+          >
+              <i class="fas fa-file-download"></i>
+          </a>
           <?php if($quote->getAuthorId() == $_SESSION['current_user_id']) : ?>
             <a class="delete-btn" href="<?php echo '../controllers/DeleteQuote.php?id=' . $quote->getId()?>">
               <i class="fas fa-trash-alt"></i>
@@ -32,6 +39,7 @@
               ?>">
               <i class="far fa-edit"></i>
             </a>
+            </li>
           <?php endif; ?>
           <div class="intro-author">Author: <?=$quote->getRealAuthor()?></div>
           <div class="intro">Submitted: <?=$quote->getAuthorFullName()?></div>

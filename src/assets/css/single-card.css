@@ -47,16 +47,28 @@
 .blog-card:hover .delete-btn {
   opacity: 1;
   bottom: 120px;
+  transform: scale(1.2);
+  transition: ease-out 0.4s;
 }
 
 .blog-card:hover .edit-btn {
   opacity: 1;
   bottom: 120px;
+  transform: scale(1.2);
+  transition: ease-out 0.4s;
+}
+
+.blog-card:hover .download-btn {
+  opacity: 1;
+  bottom: 120px;
+  transform: scale(1.2);
+  transition: ease-out 0.4s;
 }
 
 .blog-card:hover .comments {
     opacity: 1;
     transform: scale(1.5);
+    transition: ease-out 0.3s;
 }
 
 .blog-card:hover .color-overlay {
@@ -146,7 +158,7 @@ hr {
     opacity: 0;
     text-decoration: none;
     position: absolute;
-    right: 30px;
+    right: 120px;
 }
 
 .delete-btn i {
@@ -177,6 +189,25 @@ hr {
   transform: scale(1.5);
   color: orange;
 }
+
+.download-btn {
+  opacity: 0;
+  text-decoration: none;
+  position: absolute;
+  right: 30px;
+}
+
+.download-btn i {
+  font-size: 24px;
+  color: orange;
+}
+
+.download-btn:hover i {
+  transition: ease-out 0.3s;
+  transform: scale(1.5);
+  color: orange;
+}
+
 
 .likes-link {
     z-index: 9999;
