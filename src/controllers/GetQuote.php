@@ -8,7 +8,9 @@ use models\User;
 session_start();
 
 if(!isset($_SESSION['current_user_id'])) {
-    http_response_code(401);
+	http_response_code(401);
+	$message = 'Login or register to view and add quotes...';
+ 	header('Location: ../views/Login.php?message=' . $message . '&status_code=401');
 } else {
 	$current_user = $_SESSION['current_user_id'];
 	
