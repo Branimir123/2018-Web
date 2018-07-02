@@ -265,6 +265,41 @@ class Quote implements \JsonSerializable
         return $quotes;  
     }
 
+    public function getUserQuotes($user_id)
+    {
+        $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.category_name, count(l.user_id) as likesCount
+            FROM quotes q 
+            JOIN users u ON q.author_id = u.id 
+            JOIN categories c ON q.category_id = c.id
+            LEFT JOIN likes l ON q.id = l.quote_id
+            WHERE q.author_id = $user_id
+            GROUP BY q.id"
+        );
+
+        $query->execute();
+        $quotes = [];
+
+        while ($foundQuote = $query->fetch())
+        {
+            $quote =  new Quote();
+            $quote->setId($foundQuote['id']);
+            $quote->setTitle($foundQuote['title']);
+            $quote->setDateAdded($foundQuote['date_added']);
+            $quote->setAuthorId($foundQuote['author_id']);
+            $quote->setQuoteText($foundQuote['quote_text']);
+            $quote->setCategoryId($foundQuote['category_id']);
+            $quote->setAuthorUsername($foundQuote['username']);
+            $quote->setAuthorFullName($foundQuote['full_name']);
+            $quote->setCategoryName($foundQuote['category_name']);
+            $quote->setRealAuthor($foundQuote['real_author']);
+            $quote->setLikes($foundQuote['likesCount']);
+
+            $quotes[] = $quote;
+        }
+
+        return $quotes;  
+    }
+
     public function getByCategory($category_id)
     {
         $query = (new Db())->getConn()->prepare("SELECT q.*, u.username, u.full_name, c.category_name, count(l.user_id) as likesCount

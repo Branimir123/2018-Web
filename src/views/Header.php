@@ -39,6 +39,7 @@
 
                 echo '<li><a class="nav-link green" href="../views/CreateQuote.php">Add Quote</a></li>';
                 echo '<li class="right"><a class="nav-link" href="../controllers/Logout.php">Logout</a></li>';
+                echo '<li class="right"><a class="nav-link" href="../controllers/Profile.php">Profile</a></li>';
                 } else {
                 echo '<li>
                     <span class="submenu">Quotes</span>
