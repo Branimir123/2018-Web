@@ -35,6 +35,7 @@
           <?php endif; ?>
           <div class="intro-author">Author: <?=$quote->getRealAuthor()?></div>
           <div class="intro">Submitted: <?=$quote->getAuthorFullName()?></div>
+          <div class="intro"><?=$quote->getCategoryName()?></div>
         </div>
         <div class="card-info"><?=$quote->getQuoteText()?></div>
         <div class="utility-info">

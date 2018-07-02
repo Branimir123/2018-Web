@@ -9,6 +9,9 @@
         <ul>
             <?php
                 if(isset($_SESSION['current_user_id'])){
+
+                include '../controllers/GetAllCategories.php';
+                
                 echo '<li>
                     <span class="submenu">Quotes</span>
                     <ul class="submenu">
@@ -18,25 +21,22 @@
                         <li>
                             <a class="nav-link" href="../controllers/GetAllByDate.php">Newest</a>
                         </li>
+                        <li>
+                            <a class="nav-link" href="../controllers/GetMostLiked.php">Most Liked</a>
+                        </li>
                     </ul>
                 </li>';
                 echo '<li>
                 <span class="submenu">Categories</span>
-                    <ul class="submenu">
-                        <li>
-                            <a class="nav-link" href="../controllers/GetAllQuotes.php">Life</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="../controllers/GetAllByDate.php">Love</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="../controllers/GetAllByDate.php">Fun</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="../controllers/GetAllByDate.php">Other</a>
-                        </li>
-                    </ul>
-                </li>';
+                    <ul class="submenu">';
+                    foreach($categories as $category)
+                        {
+                        echo '<li>
+                                <a class="nav-link" href="../controllers/GetQuotesByCategory.php?category_id='. $category->getId() . '">'. $category->getCategoryName() .'</a>
+                            </li>';
+                    }
+                echo '</li></ul>';
+
                 echo '<li><a class="nav-link green" href="../views/CreateQuote.php">Add Quote</a></li>';
                 echo '<li class="right"><a class="nav-link" href="../controllers/Logout.php">Logout</a></li>';
                 } else {

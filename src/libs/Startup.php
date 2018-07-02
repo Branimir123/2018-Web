@@ -18,6 +18,9 @@ class Startup
     {
         $basePath = $isController ? '../' : '';
         $config   = parse_ini_file("${basePath}config/config.ini", true);
-        define('CONFIG', $config);
+
+        if (!defined('CONFIG')) {
+            define('CONFIG', $config);
+        }
     }
 } 

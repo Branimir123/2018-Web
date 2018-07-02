@@ -87,7 +87,7 @@ hr {
   background: #d0bb57;
 }
 
-.intro-submitted {
+.intro {
   width: 170px;
   margin: 0 auto;
   color: #dce3e7;
@@ -95,7 +95,6 @@ hr {
   font-size: 12px;
   font-style: italic;
   line-height: 18px;
-  opacity: 0;
 }
 
 .intro-author {
