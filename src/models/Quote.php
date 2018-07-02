@@ -313,9 +313,11 @@ class Quote implements \JsonSerializable
 
     public static function delete($id)
     {
-        $query = (new Db())->getConn()->prepare("DELETE FROM quotes WHERE id=?");
+        $deleteLikes = (new Db())->getConn()->prepare("DELETE FROM likes WHERE quote_id = $id");
+        $deleteQuote = (new Db())->getConn()->prepare("DELETE FROM quotes WHERE id = $id");
         
-        return $query->execute([$id]);
+        $deleteLikes->execute();
+        return $deleteQuote->execute();
     }
 
     public static function edit($id, $quote_text, $title, $real_author, $category_id)
