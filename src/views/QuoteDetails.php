@@ -31,10 +31,10 @@
             </a>
             <a class="edit-btn" href="<?php 
                 echo '../views/EditQuote.php?id=' . $quote->getId() . 
-                '&title=' . $quote->getTitle() . 
+                '&title=' . htmlspecialchars($quote->getTitle()) . 
                 '&author_id=' . $quote->getAuthorId() .
-                '&quote_text=' . $quote->getQuoteText() .
-                '&real_author=' . $quote->getRealAuthor() .
+                '&quote_text=' . htmlspecialchars($quote->getQuoteText()) .
+                '&real_author=' . htmlspecialchars($quote->getRealAuthor()) .
                 '&category_id=' . $quote->getCategoryId()
               ?>">
               <i class="far fa-edit"></i>

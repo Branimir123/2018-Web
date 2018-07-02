@@ -12,9 +12,9 @@ if(!isset($_SESSION['current_user_id'])) {
 } else {
     $current_user = $_SESSION['current_user_id'];
 
-    $quote_id = $_POST['id'];
-    $quote_text = $_POST['quote_text'];
-    $title = $_POST['title'];
+    $quote_id = htmlspecialchars($_POST['id']);
+    $quote_text = htmlspecialchars($_POST['quote_text']);
+    $title = htmlspecialchars($_POST['title']);
     $category_id = $_POST['category_id'];
     $real_author = $_POST['real_author'];
 
