@@ -141,6 +141,11 @@ border-bottom-right-radius: 12px;
     color: #AD7D52;
 }
 
+
+.card:hover .submitted {
+    display: block;
+}
+
 .card:hover .card__img--hover {
     height: 100%;
     opacity: 0.3;
@@ -154,4 +159,8 @@ border-bottom-right-radius: 12px;
 .card:hover .card__info-hover {
     z-index: 1000;
     opacity: 1;
+}
+
+.submitted {
+    display: none;
 }

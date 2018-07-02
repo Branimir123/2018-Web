@@ -43,6 +43,7 @@
   left: 0;
   z-index: 15;
 }
+
 .blog-card:hover .delete-btn {
   opacity: 1;
   bottom: 120px;
@@ -85,7 +86,8 @@ hr {
   border: 0;
   background: #d0bb57;
 }
-.intro {
+
+.intro-submitted {
   width: 170px;
   margin: 0 auto;
   color: #dce3e7;
@@ -93,6 +95,7 @@ hr {
   font-size: 12px;
   font-style: italic;
   line-height: 18px;
+  opacity: 0;
 }
 
 .intro-author {
