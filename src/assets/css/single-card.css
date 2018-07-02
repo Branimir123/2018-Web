@@ -46,21 +46,21 @@
 
 .blog-card:hover .delete-btn {
   opacity: 1;
-  bottom: 120px;
+  bottom: 150px;
   transform: scale(1.2);
   transition: ease-out 0.4s;
 }
 
 .blog-card:hover .edit-btn {
   opacity: 1;
-  bottom: 120px;
+  bottom: 150px;
   transform: scale(1.2);
   transition: ease-out 0.4s;
 }
 
 .blog-card:hover .download-btn {
   opacity: 1;
-  bottom: 120px;
+  bottom: 150px;
   transform: scale(1.2);
   transition: ease-out 0.4s;
 }
