@@ -303,8 +303,12 @@ class Quote implements \JsonSerializable
 
     public function insert()
     {
-        $query = (new Db())->getConn()->prepare("INSERT INTO `quotes` (date_added, author_id, quote_text, title, real_author, category_id, likes) VALUES (?, ?, ?, ?, ?, ?, ?) ");
-        return $query->execute([$this->date_added, $this->author_id, $this->quote_text, $this->title, $this->real_author, $this->category_id, 0]);
+        $db = (new Db())->getConn();
+        $query = $db->prepare("INSERT INTO `quotes` (date_added, author_id, quote_text, title, real_author, category_id, likes) VALUES (?, ?, ?, ?, ?, ?, ?) ");
+        
+        $query->execute([$this->date_added, $this->author_id, $this->quote_text, $this->title, $this->real_author, $this->category_id, 0]);
+
+        return $db->lastInsertId();
     }
 
     public static function delete($id)

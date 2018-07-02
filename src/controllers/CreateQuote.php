@@ -29,8 +29,8 @@ if (!$is_text_valid || !$is_title_valid) {
     $quote = Quote::create($title, $quote_text, $user_id, $real_author, $category_id);
 
     try {
-        $quote->insert();
-        header('Location: ./GetAllQuotes.php');
+        $id = $quote->insert();
+        header('Location: ./GetQuote.php?id=' . $id);
     } catch (Exception $ex) {
         echo $ex;
     }
